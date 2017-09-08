@@ -111,4 +111,44 @@ public class RMConnInfoConfig {
 		template.setMessageConverter(new FastJsonMessageConverter());
 	    return template;  
 	}
+	
+	/**
+	 * 现金贷连接工厂
+	 * @return
+	 */
+	@Bean("gdpConnectionFactory")  
+    public ConnectionFactory gdpConnectionFactory() {  
+        CachingConnectionFactory connectionFactory = new CachingConnectionFactory();  
+        connectionFactory.setHost(mqProperties.getGdpVhost().getConnection().getHost());
+        connectionFactory.setPort(mqProperties.getGdpVhost().getConnection().getPort());
+        connectionFactory.setUsername(mqProperties.getGdpVhost().getConnection().getUsername());  
+        connectionFactory.setPassword(mqProperties.getGdpVhost().getConnection().getPassword());  
+        connectionFactory.setVirtualHost(mqProperties.getGdpVhost().getConnection().getVirtualHost());  
+        connectionFactory.setPublisherConfirms(true); //必须要设置
+        return connectionFactory;  
+    } 
+	
+//	/**
+//	 * 现金贷admin管理工具
+//	 * @return
+//	 */
+//	@Bean("gdpRabbitAdmin")
+//	public RabbitAdmin clfRabbitAdmin(@Qualifier("clfConnectionFactory")ConnectionFactory clfConnectionFactory) {
+//		RabbitAdmin rabbitAdmin = new RabbitAdmin(clfConnectionFactory);
+//		rabbitAdmin.afterPropertiesSet();
+//	    return rabbitAdmin; 
+//	}
+	
+	/**
+	 * 现金贷rabbit 操作模板
+	 * @param clfConnectionFactory
+	 * @return
+	 */
+	@Bean("gdpRabbitTemplate")
+	@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)  
+	public RabbitTemplate gdpRabbitTemplate(@Qualifier("gdpConnectionFactory")ConnectionFactory gdpConnectionFactory) {  
+		RabbitTemplate template = new RabbitTemplate(gdpConnectionFactory);
+		template.setMessageConverter(new FastJsonMessageConverter());
+	    return template;  
+	}
 }

@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 import com.bufoon.test.config.mq.rabbit.prop.instance.ClfVhost;
+import com.bufoon.test.config.mq.rabbit.prop.instance.GdpVhost;
 import com.bufoon.test.config.mq.rabbit.prop.instance.JqmVhost;
 
 /**
@@ -20,6 +21,7 @@ import com.bufoon.test.config.mq.rabbit.prop.instance.JqmVhost;
 public class MqProperties {
 	private JqmVhost jqmVhost; //借钱么
 	private ClfVhost clfVhost; //现金贷
+	private GdpVhost gdpVhost; //淘金项目
 
 	public JqmVhost getJqmVhost() {
 		return jqmVhost;
@@ -35,6 +37,14 @@ public class MqProperties {
 
 	public void setClfVhost(ClfVhost clfVhost) {
 		this.clfVhost = clfVhost;
+	}
+
+	public GdpVhost getGdpVhost() {
+		return gdpVhost;
+	}
+
+	public void setGdpVhost(GdpVhost gdpVhost) {
+		this.gdpVhost = gdpVhost;
 	}
 	
 }

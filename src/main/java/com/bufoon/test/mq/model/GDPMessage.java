@@ -1,13 +1,11 @@
 package com.bufoon.test.mq.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
-public class MessageModel implements Serializable {
+public class GDPMessage<T> implements Serializable {
 
 	private static final long serialVersionUID = -3559252670472614687L;
 	@JSONField(name="system_time", format="yyyy-MM-dd HH:mm:ss")
@@ -15,7 +13,7 @@ public class MessageModel implements Serializable {
 	@JSONField(name="business_date", format="yyyy-MM-dd")
 	private Date businessDate;
 	private Integer size;
-	private List<CashCustomerOpt> data = new ArrayList<>();
+	private T data;
 	public Date getSystemTime() {
 		return systemTime;
 	}
@@ -34,10 +32,11 @@ public class MessageModel implements Serializable {
 	public void setSize(Integer size) {
 		this.size = size;
 	}
-	public List<CashCustomerOpt> getData() {
+	public T getData() {
 		return data;
 	}
-	public void setData(List<CashCustomerOpt> data) {
+	public void setData(T data) {
 		this.data = data;
 	}
+	
 }
